@@ -1,0 +1,8 @@
+*.swp
+*.swo
+*.vim
+.tern-project
+
+
+node_modules/
+dist/
