@@ -41,8 +41,8 @@ const watcher = {
 } 
 
 const proxy = {
-    proxy: "localhost/itech.media",
-    host: "localhost",
+    proxy: "itech",
+    host: "itech",
     open: false
   }
 gulp.task('browserSync', ()=> bsync.init(proxy)) 
