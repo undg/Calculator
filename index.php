@@ -11,8 +11,8 @@
       <div id="calculator">
         <form>
           <div class="display">
-            <input type="text" name="operation" class="display__top">
-            <input type="text" name="equal" class="display__bottom">
+            <input type="text" name="operation" class="display__top" value="10 / 2 * 3 - 2 + 8 =">
+            <input type="text" name="equal" class="display__bottom" value="21">
           </div>
           <div class="keyboard">
             <button id="ac" class="control">AC</button>

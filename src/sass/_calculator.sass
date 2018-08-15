@@ -7,9 +7,14 @@
 
 
 #calculator
+  $calc-width: 90vw
+  // responsive font size, can by pixel perfect with some work
+  $font-size: 4vw
+  @media (min-aspect-ratio: 7/5)
+    $font-size: 4vh
   width: $calc-width
   height: calc(#{$calc-width} * 2)
-  max-width: calc(100vh / 2)
+  max-width: calc(90vh / 2)
   max-height: 90vh
   form
     display: flex
@@ -24,8 +29,10 @@
       height: calc(100% * 160/500)
       &__top
         height: calc(100% * 70/180)
+        font-size: calc($font-size)
       &__bottom
         height: calc(100% * 110/180)
+        font-size: calc($font-size)
       input
         width: 100%
 
@@ -36,6 +43,7 @@
       button
         display: block
         width: calc(100% * 1/4)
+        font-size: $font-size
         &#n0, &#save
           width: calc(100% * 2/4)
       .control
@@ -60,6 +68,5 @@
           background: $lightred
         .operator
           background: $orange
-
 
 // vim: ft=sass
