@@ -17,6 +17,9 @@ const source = {
     'sass/main.sass'
   ],
   js: [
+    'js/helpers.js',
+    'js/calculator.js',
+    'js/fontSize.js',
     'js/main.js',
   ]
 }
@@ -55,7 +58,7 @@ gulp.task('style', function() {
     .pipe(sourcemaps.init())
       .pipe(sass().on('error',sass.logError))
       .pipe(autoPrefixer())
-      // .pipe(cleanCSS())
+      .pipe(cleanCSS())
       .pipe(rename(distribute.fileName.css))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(distribute.location.css))
