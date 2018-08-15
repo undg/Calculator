@@ -2,6 +2,7 @@
 const gulp         = require("gulp"),
   plumber        = require("gulp-plumber"),
   sass           = require("gulp-sass"),
+  cleanCSS       = require("gulp-clean-css"),
   autoPrefixer   = require("gulp-autoprefixer"),
   uglify         = require("gulp-uglify"),
   concat         = require("gulp-concat"),
@@ -13,7 +14,7 @@ const gulp         = require("gulp"),
 
 const source = {
   css: [
-    'sass/main.sass',
+    'sass/main.sass'
   ],
   js: [
     'js/main.js',
@@ -32,8 +33,8 @@ const distribute = {
 }
 
 const watcher = {
-  css: 'src/sass/**/*.scss',
-  js: 'src/js/**/*.js',
+  css: 'sass/**/*.sass',
+  js: 'js/**/*.js',
   php: [
     '../**/*.php',
     '../**/*.html'
@@ -54,8 +55,9 @@ gulp.task('style', function() {
     .pipe(sourcemaps.init())
       .pipe(sass().on('error',sass.logError))
       .pipe(autoPrefixer())
+      // .pipe(cleanCSS())
+      .pipe(rename(distribute.fileName.css))
     .pipe(sourcemaps.write('./'))
-    .pipe(rename(distribute.fileName.css))
     .pipe(gulp.dest(distribute.location.css))
     .pipe(bsync.stream())
 })
