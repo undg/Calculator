@@ -1,0 +1,65 @@
+.container
+  width: 100vw
+  height: 100vh
+  display: flex
+  justify-content: center
+  align-items: center
+
+
+#calculator
+  width: $calc-width
+  height: calc(#{$calc-width} * 2)
+  max-width: calc(100vh / 2)
+  max-height: 90vh
+  form
+    display: flex
+    flex-direction: column
+    width: 100%
+    height: 100%
+    
+    .display
+      display: flex
+      flex-direction: column
+      // I'm sure you expect to see here flex basis, however this is less problematic, easier to keep aspect ratio etc.
+      height: calc(100% * 160/500)
+      &__top
+        height: calc(100% * 70/180)
+      &__bottom
+        height: calc(100% * 110/180)
+      input
+        width: 100%
+
+    .keyboard
+      height: calc(100% * 340/500)
+      display: flex
+      flex-wrap: wrap
+      button
+        display: block
+        width: calc(100% * 1/4)
+        &#n0, &#save
+          width: calc(100% * 2/4)
+      .control
+      .number
+      .operator
+
+
+// bg's
+.container
+  #calculator
+    form
+      .display
+        background: $gray
+        input
+          background: $gray
+      .keyboard
+        button
+          border-top: 1px solid $lightgray
+        .control
+          background: $red
+        .number
+          background: $lightred
+        .operator
+          background: $orange
+
+
+// vim: ft=sass

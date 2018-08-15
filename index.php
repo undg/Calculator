@@ -11,17 +11,17 @@
       <div id="calculator">
         <form>
           <div class="display">
-            <input type="text" name="operation">
-            <input type="text" name="equal">
+            <input type="text" name="operation" class="display__top">
+            <input type="text" name="equal" class="display__bottom">
           </div>
           <div class="keyboard">
             <button id="ac" class="control">AC</button>
             <button id="save" class="control" type="submit">SAVE</button>
-            <button id="divide">&#247;</button>
+            <button id="divide" class="operator">&#247;</button>
 
             <button id="dot" class="number">.</button>
             <button id="n0" class="number">0</button>
-            <button id="multiply" class="operator">X</button>
+            <button id="multiply" class="operator">x</button>
 
             <button id="n1" class="number">1</button>
             <button id="n2" class="number">2</button>
