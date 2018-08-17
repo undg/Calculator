@@ -1,3 +1,5 @@
+// My everyday snippets
+
 /* exported dbg, testSelectors */
 function dbg(){
   "use strict"
