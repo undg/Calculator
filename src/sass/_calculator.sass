@@ -1,3 +1,6 @@
+div, button
+  font-family: "Helvetica"
+
 .container
   width: 100vw
   height: 100vh
@@ -9,6 +12,8 @@
 #calculator
   $calc-width: 90vw
   // responsive font size, can by pixel perfect with some work
+  // it is working on every standard aspect ratio
+  // i can add extra media query for very non standard if necessary 
   $font-size: 4vw
   @media (min-aspect-ratio: 7/5)
     $font-size: 4vh
@@ -23,50 +28,59 @@
     height: 100%
     
     .display
+      background: $gray
       display: flex
       flex-direction: column
       // I'm sure you expect to see here flex basis, however this is less problematic, easier to keep aspect ratio etc.
       height: calc(100% * 160/500)
+      &__top,
+      &__bottom
+        display: inline-block
+        width: 100%
+        background: $gray
+        text-align: right
+        padding-left: $font-size
+        padding-right: $font-size
       &__top
         height: calc(100% * 70/180)
-        font-size: calc($font-size)
+        line-height: 4
+        color: $lightgray
+        font-size: calc(#{$font-size} * 1)
       &__bottom
         height: calc(100% * 110/180)
-        font-size: calc($font-size)
-      input
-        width: 100%
+        line-height: 1
+        color: $white
+        font-size: calc(#{$font-size} * 3)
 
     .keyboard
       height: calc(100% * 340/500)
       display: flex
       flex-wrap: wrap
       button
+        border-top: 1px solid $lightgray
         display: block
         width: calc(100% * 1/4)
         font-size: $font-size
         &#n0, &#save
           width: calc(100% * 2/4)
       .control
+        background: $red
       .number
+        background: $lightred
       .operator
+        background: $orange
 
 
-// bg's
-.container
-  #calculator
-    form
-      .display
-        background: $gray
-        input
-          background: $gray
-      .keyboard
-        button
-          border-top: 1px solid $lightgray
-        .control
-          background: $red
-        .number
-          background: $lightred
-        .operator
-          background: $orange
+// template
+// .container
+//   #calculator
+//     form
+//       .display
+//         input
+//       .keyboard
+//         button
+//         .control
+//         .number
+//         .operator
 
 // vim: ft=sass
