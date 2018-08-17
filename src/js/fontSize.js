@@ -8,6 +8,12 @@ var fontSize = {
   init: function(){
     'use strict'
     dbg('It.fontSize.init()')
+    if(!this.elements.displayTop){
+      console.error('missing element elements.displayTop')
+      return
+    }
+
+    this.reset()
     this.resizeText(this.elements.displayTop)
   },
 
@@ -36,7 +42,7 @@ var fontSize = {
 
   reset: function(){
     'use strict'
-    this.elements.displayTop.style.fontStyle = ''
+    this.elements.displayTop.style = ''
   }
   
 }
