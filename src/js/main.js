@@ -1,3 +1,6 @@
 // jshint undef: false
-calculator.init()
-fontSize.init()
+window.addEventListener('DOMContentLoaded',function(){
+  'use strict'
+  calculator.init()
+  fontSize.init()
+},false)
