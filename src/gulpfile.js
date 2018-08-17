@@ -1,14 +1,14 @@
 //jshint node:true, esversion: 6, strict: false
-const gulp         = require("gulp"),
-  plumber        = require("gulp-plumber"),
-  sass           = require("gulp-sass"),
-  cleanCSS       = require("gulp-clean-css"),
-  autoPrefixer   = require("gulp-autoprefixer"),
-  uglify         = require("gulp-uglify"),
-  concat         = require("gulp-concat"),
-  sourcemaps     = require("gulp-sourcemaps"), 
-  rename         = require("gulp-rename"),
-  bsync          = require("browser-sync").create()
+const gulp         = require("gulp")
+const plumber      = require("gulp-plumber")
+const sass         = require("gulp-sass")
+const cleanCSS     = require("gulp-clean-css")
+const autoPrefixer = require("gulp-autoprefixer")
+const uglify       = require("gulp-uglify")
+const concat       = require("gulp-concat")
+const sourcemaps   = require("gulp-sourcemaps")
+const rename       = require("gulp-rename")
+const bsync        = require("browser-sync").create()
 
 // gulp gulp-plumber gulp-sass gulp-autoprefixer gulp-uglify gulp-concat gulp-sourcemaps gulp-rename browser-sync
 
@@ -20,6 +20,7 @@ const source = {
     'js/helpers.js',
     'js/calculator.js',
     'js/fontSize.js',
+    'js/events.js',
     'js/main.js',
   ]
 }
