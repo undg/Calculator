@@ -37,18 +37,12 @@ var calculator = {
     calculationStr: '',
     equal: '',
     lastOperation: '',
-    stage: 'calculating'
   },
 
 
   createEvents: function(){
     'use strict'
     var that = this // little bit ugly but from time to time it's ok 
-    this.elements.btn.equal.addEventListener('click', function(e){
-      e.preventDefault()
-      that.equal()
-    })
-      
     function createBtnsArr(arr, item){
       arr.push(item)
       return arr
@@ -73,6 +67,16 @@ var calculator = {
       })
     })
 
+    this.elements.btn.equal.addEventListener('click', function(e){
+      e.preventDefault()
+      that.equal()
+    })
+      
+    this.elements.btn.ac.addEventListener('click', function(e){
+      e.preventDefault()
+      that.clear()
+    })
+      
   },
 
 
@@ -84,11 +88,11 @@ var calculator = {
 
     // only one dot in number string
     if(String(calcArr[lastIdx]).indexOf('.') !== -1 && value === '.'){
-      return 
-      // I like to break function as fast as it is possible
-      // this way i can reduce nesting if's and remove else's
-      // on top of that JS engine have less work
+      return    // I like to break function as fast as it is possible
+                // this way i can reduce nesting if's and remove else's
+                // on top of that JS engine have less work
     }
+
     if(String(calcArr[lastIdx]).charAt(0) === '0' && value === '0'){
       return 
     }
@@ -99,6 +103,7 @@ var calculator = {
         return
       }
       value = " " + value + " "
+      // replace last operator with new one
       if(this.storage.lastOperation === type){
         this.storage.lastOperation = type
         calcArr[lastIdx] = value
@@ -109,13 +114,14 @@ var calculator = {
       return
     }
 
+    // append digit, create number
     if(type === 'number'){
-      // append digit, create number
       if(this.storage.lastOperation === type){
         calcArr[lastIdx] += value
         this.storage.lastOperation = type
         return
       }
+      // prepend 0 before dot
       value = value === '.' ? '0.' : value
       calcArr.push(value)
       this.storage.lastOperation = type
@@ -135,14 +141,14 @@ var calculator = {
   renderDisplay: function(value, type){
     'use strict'
 
-    if(this.storage.stage === 'result'){
-      return
-    }
     this.updateCalcArr(this.storage.calculationArr, value, type)
 
     this.storage.calculationStr = this.calcArrToStr(this.storage.calculationArr)
     this.elements.display.top[0].textContent = this.storage.calculationStr
     this.elements.display.top[1].value = this.storage.calculationStr
+
+    this.elements.display.bottom[0].textContent = ''
+    this.elements.display.bottom[1].value = ''
 
     this.storage.stage = 'calculating'
     fontSize.init()
@@ -152,21 +158,26 @@ var calculator = {
   equal: function(){
     'use strict'
     dbg('equal()')
-    if(this.storage.stage === 'result'){
-      return
-    }
     var equal = String(eval(this.storage.calculationStr))
 
     this.elements.display.top[0].textContent += ' ='
     this.elements.display.bottom[0].textContent = equal
     this.elements.display.bottom[1].value = equal
 
-    this.storage.stage = 'result'
   },
 
 
   clear: function(){
+    "use strict"
+    this.storage.calculationArr = []
+    this.storage.calculationStr = ''
+    this.storage.equal = ''
+    this.storage.lastOperation = ''
 
+    this.elements.display.top[0].textContent = ''
+    this.elements.display.top[1].value = ''
+    this.elements.display.bottom[0].textContent = ''
+    this.elements.display.bottom[1].value = ''
   }
 
 }
