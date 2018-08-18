@@ -11,11 +11,11 @@
       <div id="calculator">
         <form>
           <div class="display">
-            <span class="display__top" data-fontSize data-display="top">10 / 2 * 3 - 2 + 8 =</span>
-            <span class="display__bottom" data-display="top">21</span>
-            <?php // styling text in input[text] is not as flexible as in <span>  ?>
-            <input type="hidden" name="operation" value="10 / 2 * 3 - 2 + 8 =">
-            <input type="hidden" name="equal" value="21">
+            <span class="display__top" data-fontSize data-display="top"></span>
+            <span class="display__bottom" data-display="bottom"></span>
+            <?php /* styling text in input[text] is not as flexible as in <span> */ ?>
+            <input type="hidden" name="operation" data-display="top">
+            <input type="hidden" name="equal"> 
           </div>
           <div class="keyboard">
             <button class="control" data-ac>AC</button>

@@ -20,7 +20,6 @@ const source = {
     'js/helpers.js',
     'js/calculator.js',
     'js/fontSize.js',
-    'js/events.js',
     'js/main.js',
   ]
 }
