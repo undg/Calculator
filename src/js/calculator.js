@@ -1,3 +1,5 @@
+// I don't see a reason to use jquery here and make js heavier
+
 // jshint -W061
 /* exported calculator */
 /* global dbg, testSelectors, fontSize */
@@ -164,6 +166,7 @@ var calculator = {
     this.elements.display.bottom[0].textContent = equal
     this.elements.display.bottom[1].value = equal
 
+    fontSize.init()
   },
 
 

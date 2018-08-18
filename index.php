@@ -12,7 +12,7 @@
         <form>
           <div class="display">
             <span class="display__top" data-fontSize data-display="top"></span>
-            <span class="display__bottom" data-display="bottom"></span>
+            <span class="display__bottom" data-fontSize data-display="bottom"></span>
             <?php /* styling text in input[text] is not as flexible as in <span> */ ?>
             <input type="hidden" name="operation" data-display="top">
             <input type="hidden" name="equal" data-display="bottom"> 
