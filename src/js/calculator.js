@@ -22,8 +22,8 @@ var calculator = {
       numbers   : document.querySelectorAll('[data-num]'),
       operators : document.querySelectorAll('[data-operator]'),
       equal     : document.querySelector('[data-equal]'),
-      ac        : document.querySelectorAll('[data-ac]'),
-      save      : document.querySelectorAll('[data-save]')
+      ac        : document.querySelector('[data-ac]'),
+      save      : document.querySelector('[data-save]')
     },
     display:{
       top    : document.querySelectorAll('[data-display="top"]'),
@@ -37,6 +37,7 @@ var calculator = {
     calculationStr: '',
     equal: '',
     lastOperation: '',
+    stage: 'calculating'
   },
 
 
@@ -55,7 +56,6 @@ var calculator = {
 
     // A little bit not DRY, maybe refactor it later
     var numArr = Object.values(this.elements.btn.numbers).reduce(createBtnsArr, [])
-    testSelectors(numArr)
     numArr.forEach(function(item){
       var value = item.dataset.num
       item.addEventListener('click', function(e){
@@ -65,7 +65,6 @@ var calculator = {
     })
 
     var operatorsArr = Object.values(this.elements.btn.operators).reduce(createBtnsArr, [])
-    testSelectors(operatorsArr)
     operatorsArr.forEach(function(item){
       var value = item.dataset.operator
       item.addEventListener('click', function(e){
@@ -136,12 +135,16 @@ var calculator = {
   renderDisplay: function(value, type){
     'use strict'
 
+    if(this.storage.stage === 'result'){
+      return
+    }
     this.updateCalcArr(this.storage.calculationArr, value, type)
 
     this.storage.calculationStr = this.calcArrToStr(this.storage.calculationArr)
     this.elements.display.top[0].textContent = this.storage.calculationStr
     this.elements.display.top[1].value = this.storage.calculationStr
 
+    this.storage.stage = 'calculating'
     fontSize.init()
   },
 
@@ -149,11 +152,21 @@ var calculator = {
   equal: function(){
     'use strict'
     dbg('equal()')
+    if(this.storage.stage === 'result'){
+      return
+    }
     var equal = String(eval(this.storage.calculationStr))
-    dbg(typeof equal)
+
     this.elements.display.top[0].textContent += ' ='
     this.elements.display.bottom[0].textContent = equal
     this.elements.display.bottom[1].value = equal
+
+    this.storage.stage = 'result'
+  },
+
+
+  clear: function(){
+
   }
 
 }
