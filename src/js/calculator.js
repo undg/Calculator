@@ -79,6 +79,9 @@ var calculator = {
       that.clear()
     })
       
+    this.elements.btn.save.addEventListener('click', function(){
+      that.equal()
+    })
   },
 
 
@@ -95,12 +98,9 @@ var calculator = {
                 // on top of that JS engine have less work
     }
 
-    if(String(calcArr[lastIdx]).charAt(0) === '0' && value === '0'){
-      return 
-    }
-
     if(type === 'operator'){
-      if(calcArr.length === 0){
+      // first character should by digit or minus
+      if(calcArr.length === 0 && value !== '-'){
         this.storage.lastOperation = type
         return
       }
@@ -125,6 +125,10 @@ var calculator = {
       }
       // prepend 0 before dot
       value = value === '.' ? '0.' : value
+
+      // append dot after 0
+      value = calcArr && value === '0' ? '0.' : value
+
       calcArr.push(value)
       this.storage.lastOperation = type
       return
@@ -152,7 +156,6 @@ var calculator = {
     this.elements.display.bottom[0].textContent = ''
     this.elements.display.bottom[1].value = ''
 
-    this.storage.stage = 'calculating'
     fontSize.init()
   },
 
@@ -160,6 +163,7 @@ var calculator = {
   equal: function(){
     'use strict'
     dbg('equal()')
+    if(!this.storage.calculationStr){ return }
     var equal = String(eval(this.storage.calculationStr))
 
     this.elements.display.top[0].textContent += ' ='
