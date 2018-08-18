@@ -30,7 +30,7 @@
     ?>
     <div class="container">
       <div id="calculator">
-        <form>
+        <form action="Calculations.php" method="post">
           <div class="display">
             <span class="display__top" data-fontSize data-display="top"></span>
             <span class="display__bottom" data-fontSize data-display="bottom"></span>
