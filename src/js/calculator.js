@@ -25,7 +25,8 @@ var calculator = {
       operators : document.querySelectorAll('[data-operator]'),
       equal     : document.querySelector('[data-equal]'),
       ac        : document.querySelector('[data-ac]'),
-      save      : document.querySelector('[data-save]')
+      save      : document.querySelector('[data-save]'),
+      erase    : document.querySelector('[data-erase]')
     },
     display:{
       top    : document.querySelectorAll('[data-display="top"]'),
@@ -38,7 +39,7 @@ var calculator = {
     calculationArr: [],
     calculationStr: '',
     equal: '',
-    lastOperation: '',
+    lastOperation: '' // number / operator
   },
 
 
@@ -82,6 +83,11 @@ var calculator = {
     this.elements.btn.save.addEventListener('click', function(){
       that.equal()
     })
+
+    this.elements.btn.erase.addEventListener('click', function(e){
+      e.preventDefault()
+      that.erase()
+    })
   },
 
 
@@ -92,11 +98,12 @@ var calculator = {
     var lastIdx = calcArr.length - 1
 
     // only one dot in number string
-    if(String(calcArr[lastIdx]).indexOf('.') !== -1 && value === '.'){
+    if(value === ''){
       return    // I like to break function as fast as it is possible
                 // this way i can reduce nesting if's and remove else's
                 // on top of that JS engine have less work
     }
+    if(String(calcArr[lastIdx]).indexOf('.') !== -1 && value === '.'){ return }
 
     if(type === 'operator'){
       // first character should by digit or minus
@@ -146,17 +153,42 @@ var calculator = {
 
   renderDisplay: function(value, type){
     'use strict'
+    dbg('renderDisply():', value, type)
 
     this.updateCalcArr(this.storage.calculationArr, value, type)
 
     this.storage.calculationStr = this.calcArrToStr(this.storage.calculationArr)
+    this.storage.lastOperationType = type
     this.elements.display.top[0].textContent = this.storage.calculationStr
     this.elements.display.top[1].value = this.storage.calculationStr
 
     this.elements.display.bottom[0].textContent = ''
     this.elements.display.bottom[1].value = ''
 
+    dbg('ren:', this.storage.calculationArr )
     fontSize.init()
+  },
+
+
+  erase: function(){
+    'use strict'
+    if(this.storage.calculationArr.length === 0) { 
+      return 
+    }
+
+    this.storage.lastOperation = this.storage.lastOperation === 'number' ? 'operator' : 'number'
+
+    if(this.storage.calculationArr.length > 1){ 
+      this.storage.calculationArr.pop()
+      dbg('------------------', this.storage.lastOperation)
+      this.renderDisplay('', this.storage.lastOperation)
+      return
+    }
+
+    this.storage.calculationArr = [] 
+    this.clear()
+
+    dbg('erase:', this.storage.calculationArr )
   },
 
 
