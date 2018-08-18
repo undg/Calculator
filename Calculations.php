@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 function saveData(){
   $calc    = $_POST["calc"];  
@@ -25,6 +22,34 @@ function saveData(){
 }
 saveData();
 
+
+function getData(){
+  $tbl = array();
+  $file = fopen("calculations.csv", "r");
+  while (($data = fgetcsv($file, ",")) !== FALSE) {
+    if($data[2] !== "n/a"){
+      $tbl[] = array(
+        "calc" => $data[0],
+        "result" => $data[1],
+        "date" => $data[2],
+        "browser" => $data[3],
+        "ip" => $data[4]
+      );
+    }
+  }
+  fclose($file);
+  $s_date = array_column($tbl, 'date');
+  array_multisort($s_date, SORT_DESC, $tbl);
+
+  foreach($tbl as $row){
+    echo "<tr>\n";
+    foreach($row as $col) {
+      echo "<td>" . $col . "</td>\n";
+    }
+    echo "</tr>\n";
+  }
+}
+
 ?>
 <html lang="en">
   <head>
@@ -35,7 +60,21 @@ saveData();
   </head>
   <body>
 
+<table>
+  <thead>
+    </tr>
+      <td>calculation</td>
+      <td>result</td>
+      <td>date</td>
+      <td>browser</td>
+      <td>ip</td>
+    </tr>
+  </thead>
+  <tbody>
+    <?=getData()?>
+  </tbody>
+</table>
 
   </body>
 </html>
-<? // vim: tabstop=2 sw=2 ft=php
+<?php // vim: tabstop=2 sw=2 ft=php
