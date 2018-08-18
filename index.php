@@ -22,8 +22,13 @@
             <button class="control" data-save type="submit">SAVE</button>
             <button class="operator" data-operator="/">&#247;</button>
 
-            <button class="number" data-num=".">.</button>
-            <button class="number" data-num="0">0</button>
+<?php /* [data-num="0"]:
+I was thinking a while about centering ZERO BUTTON, This primitive method will by less buggy.
+With responsive sizes i need to use much more calc() and hacks to center it to pseudo-grid, instead to container,
+without warranty that digit will stay 'inline' in every edge case. */?>
+            <button class="number" data-num=".">.</button>    
+            <button class="number" data-num="0">0</button>       
+            <button class="number" data-num="0"></button>      
             <button class="operator" data-operator="*">x</button>
 
             <button class="number" data-num="1">1</button>
