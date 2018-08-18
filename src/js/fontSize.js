@@ -13,10 +13,8 @@ var fontSize = {
       return
     }
 
-    window.onresize = function(){
       this.reset()
       this.resizeText(this.elements.displayTop)
-    }.bind(this)
   },
 
   elements: {

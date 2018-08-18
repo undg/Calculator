@@ -2,5 +2,7 @@
 window.addEventListener('DOMContentLoaded',function(){
   'use strict'
   calculator.init()
-  fontSize.init()
+  window.onresize = function(){
+    fontSize.init()
+  }
 },false)

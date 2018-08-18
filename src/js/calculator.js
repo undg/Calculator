@@ -1,5 +1,5 @@
 /* exported calculator */
-/* global dbg, testSelectors */
+/* global dbg, testSelectors, fontSize */
 var calculator = {
   init: function(){
     'use strict'
@@ -10,6 +10,7 @@ var calculator = {
     testSelectors(this.elements.btn)
     testSelectors(this.elements.display)
   },
+
 
   elements: {
     btn: {
@@ -28,10 +29,13 @@ var calculator = {
     },
   },
 
+
   storage: {
-    calculation: [],
+    calculationArr: [],
+    equal: '',
     lastOperation: '',
   },
+
 
   createEvents: function(){
     'use strict'
@@ -41,6 +45,7 @@ var calculator = {
       return arr
     }
 
+    // A little bit not DRY, maybe refactor it later
     var numArr = Object.values(this.elements.btn.numbers).reduce(createBtnsArr, [])
     testSelectors(numArr)
     numArr.forEach(function(item){
@@ -63,14 +68,28 @@ var calculator = {
 
   },
 
+
   updateCalcArr: function(calcArr, value, type){
     'use strict'
     dbg('type:', type)
+    dbg('val:', value)
     var lastIdx = calcArr.length - 1
+
+    // only one dot in number string
+    if(String(calcArr[lastIdx]).indexOf('.') !== -1 && value === '.'){
+      return 
+      // I like to break function as fast as it is possible
+      // this way i can reduce nesting if's and remove else's
+      // on top of that JS engine have less work
+    }
+    if(String(calcArr[lastIdx]).charAt(0) === '0' && value === '0'){
+      return 
+    }
+
     if(type === 'operator'){
       if(calcArr.length === 0){
         this.storage.lastOperation = type
-        return // break function as fast as it is possible
+        return
       }
       value = " " + value + " "
       if(this.storage.lastOperation === type){
@@ -90,6 +109,7 @@ var calculator = {
         this.storage.lastOperation = type
         return
       }
+      value = value === '.' ? '0.' : value
       calcArr.push(value)
       this.storage.lastOperation = type
       return
@@ -97,19 +117,29 @@ var calculator = {
 
   },
 
-  calcArrToStr: function(){
 
+  calcArrToStr: function(arr){
+    'use strict'
+    var str = arr.join('')
+    return str
   },
   
+
   renderDisplay: function(value, type){
     'use strict'
 
-    this.updateCalcArr(this.storage.calculation, value, type)
-    dbg(this.storage.calculation)
+    this.updateCalcArr(this.storage.calculationArr, value, type)
+
+    var calculationStr = this.calcArrToStr(this.storage.calculationArr)
+    this.elements.display.top[0].textContent = calculationStr
+    this.elements.display.top[1].value = calculationStr
+
+    fontSize.init()
+  },
 
 
-    this.elements.display.top[0].textContent = this.storage.calculation
-    this.elements.display.top[1].value = this.storage.calculation
+  equal: function(){
+
   }
 
 }
