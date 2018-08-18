@@ -7,6 +7,27 @@
     <link rel="stylesheet" href="dist/css/main.css">
   </head>
   <body>
+    <?php 
+    // It should by by in separate file, but i think
+    // with this amount of code index.php is not to noisy
+    $ip = getenv('HTTP_CLIENT_IP')?:
+          getenv('HTTP_X_FORWARDED_FOR')?:
+          getenv('HTTP_X_FORWARDED')?:
+          getenv('HTTP_FORWARDED_FOR')?:
+          getenv('HTTP_FORWARDED')?:
+          getenv('REMOTE_ADDR');
+
+    function browser() {
+    // not 100% accurate but doing the job in most cases
+      $u_agent = $_SERVER['HTTP_USER_AGENT'];
+          if(preg_match('/MSIE/i',$u_agent))    { return "ie"; }
+      elseif(preg_match('/Firefox/i',$u_agent)) { return "firefox"; }
+      elseif(preg_match('/Chrome/i',$u_agent))  { return "chrome"; }
+      elseif(preg_match('/Safari/i',$u_agent))  { return "safari"; }
+      elseif(preg_match('/Flock/i',$u_agent))   { return "flock"; }
+      elseif(preg_match('/Opera/i',$u_agent))   { return "opera"; }
+    }
+    ?>
     <div class="container">
       <div id="calculator">
         <form>
@@ -14,8 +35,11 @@
             <span class="display__top" data-fontSize data-display="top"></span>
             <span class="display__bottom" data-fontSize data-display="bottom"></span>
             <?php /* styling text in input[text] is not as flexible as in <span> */ ?>
-            <input type="hidden" name="operation" data-display="top">
-            <input type="hidden" name="equal" data-display="bottom"> 
+            <input type="hidden" name="calc" data-display="top">
+            <input type="hidden" name="result" data-display="bottom"> 
+            <input type="hidden" name="date" value="<?=Date('Y-m-d')?>"> 
+            <input type="hidden" name="browser" value="<?=browser()?>"> 
+            <input type="hidden" name="ip" value="<?=$ip?>"> 
           </div>
           <div class="keyboard">
             <button class="control" data-ac>AC</button>

@@ -22,9 +22,9 @@ var fontSize = {
   },
 
   elements: {
-    display: document.querySelectorAll('[data-fontSize]'),
-    displayTop: document.querySelectorAll('[data-fontSize]')[0],
-    displayBottom: document.querySelectorAll('[data-fontSize]')[1]
+    display       : document.querySelectorAll('[data-fontSize]'),
+    displayTop    : document.querySelectorAll('[data-fontSize]')[0],
+    displayBottom : document.querySelectorAll('[data-fontSize]')[1]
   },
 
   isOverflow: function(el){
