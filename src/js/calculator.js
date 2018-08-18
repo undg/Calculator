@@ -1,3 +1,4 @@
+// jshint -W061
 /* exported calculator */
 /* global dbg, testSelectors, fontSize */
 var calculator = {
@@ -20,6 +21,7 @@ var calculator = {
       // Plus [data] can have a [value], what is super useful
       numbers   : document.querySelectorAll('[data-num]'),
       operators : document.querySelectorAll('[data-operator]'),
+      equal     : document.querySelector('[data-equal]'),
       ac        : document.querySelectorAll('[data-ac]'),
       save      : document.querySelectorAll('[data-save]')
     },
@@ -32,6 +34,7 @@ var calculator = {
 
   storage: {
     calculationArr: [],
+    calculationStr: '',
     equal: '',
     lastOperation: '',
   },
@@ -39,7 +42,12 @@ var calculator = {
 
   createEvents: function(){
     'use strict'
-    var that = this
+    var that = this // little bit ugly but from time to time it's ok 
+    this.elements.btn.equal.addEventListener('click', function(e){
+      e.preventDefault()
+      that.equal()
+    })
+      
     function createBtnsArr(arr, item){
       arr.push(item)
       return arr
@@ -130,16 +138,22 @@ var calculator = {
 
     this.updateCalcArr(this.storage.calculationArr, value, type)
 
-    var calculationStr = this.calcArrToStr(this.storage.calculationArr)
-    this.elements.display.top[0].textContent = calculationStr
-    this.elements.display.top[1].value = calculationStr
+    this.storage.calculationStr = this.calcArrToStr(this.storage.calculationArr)
+    this.elements.display.top[0].textContent = this.storage.calculationStr
+    this.elements.display.top[1].value = this.storage.calculationStr
 
     fontSize.init()
   },
 
 
   equal: function(){
-
+    'use strict'
+    dbg('equal()')
+    var equal = String(eval(this.storage.calculationStr))
+    dbg(typeof equal)
+    this.elements.display.top[0].textContent += ' ='
+    this.elements.display.bottom[0].textContent = equal
+    this.elements.display.bottom[1].value = equal
   }
 
 }

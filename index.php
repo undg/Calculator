@@ -15,7 +15,7 @@
             <span class="display__bottom" data-display="bottom"></span>
             <?php /* styling text in input[text] is not as flexible as in <span> */ ?>
             <input type="hidden" name="operation" data-display="top">
-            <input type="hidden" name="equal"> 
+            <input type="hidden" name="equal" data-display="bottom"> 
           </div>
           <div class="keyboard">
             <button class="control" data-ac>AC</button>
