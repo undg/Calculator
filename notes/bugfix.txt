@@ -1,0 +1,5 @@
+* result [0] saved as n/a
+* save: don't send if last character is operator
+* equal: don't calculate if last character is operator
+* mobile disable zoom in
+* ie11 resize sometimes can break layout 
