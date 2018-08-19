@@ -79,7 +79,11 @@ var calculator = {
       that.clear()
     })
       
-    this.elements.btn.save.addEventListener('click', function(){
+    this.elements.btn.save.addEventListener('click', function(e){
+      if(!that.storage.calculationStr){ 
+        e.preventDefault()
+        return 
+      }
       that.equal()
     })
   },
