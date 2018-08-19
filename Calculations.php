@@ -8,7 +8,7 @@ function saveData(){
   $ip      = $_POST["ip"];     
 
   $calc    = !empty($calc)    ? $calc    : "n/a" ;
-  $result  = !empty($result)  ? $result  : "n/a" ;
+  $result  = !empty($result)  ? $result  : "0"   ;
   $date    = !empty($date)    ? $date    : "n/a" ;
   $browser = !empty($browser) ? $browser : "n/a" ;
   $ip      = !empty($ip)      ? $ip      : "n/a" ;

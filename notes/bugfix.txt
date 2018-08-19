@@ -1,0 +1,2 @@
+* ie11 resize sometimes can break layout (button bug?)
+* if first clicked any operator, can't start with minus
