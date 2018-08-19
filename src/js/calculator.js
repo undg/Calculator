@@ -80,7 +80,7 @@ var calculator = {
     })
       
     this.elements.btn.save.addEventListener('click', function(e){
-      if(!that.storage.calculationStr){ 
+      if(!that.storage.calculationStr || that.storage.lastOperation === 'operator'){ 
         e.preventDefault()
         return 
       }
