@@ -1,3 +1,2 @@
-* mobile disable zoom in
 * ie11 resize sometimes can break layout 
 * need js lib for mobile click handling. Better touch response on mobile. 
