@@ -2,7 +2,7 @@
 
 // jshint -W061
 /* exported calculator */
-/* global dbg, testSelectors, fontSize */
+/* global dbg, testSelectors, fontSize, multiEventListener */
 var calculator = {
   init: function(){
     'use strict'
@@ -54,7 +54,7 @@ var calculator = {
     var numArr = Object.values(this.elements.btn.numbers).reduce(createBtnsArr, [])
     numArr.forEach(function(item){
       var value = item.dataset.num
-      item.addEventListener('click', function(e){
+      multiEventListener(item, 'click touchend', function(e){
         e.preventDefault()
         that.renderDisplay(value, 'number')
       })
@@ -63,23 +63,27 @@ var calculator = {
     var operatorsArr = Object.values(this.elements.btn.operators).reduce(createBtnsArr, [])
     operatorsArr.forEach(function(item){
       var value = item.dataset.operator
-      item.addEventListener('click', function(e){
+      multiEventListener(item, 'click touchend', function(e){
         e.preventDefault()
         that.renderDisplay(value, 'operator')
       })
     })
 
-    this.elements.btn.equal.addEventListener('click', function(e){
+    multiEventListener(this.elements.btn.equal, 'click touchend', function(e){
       e.preventDefault()
       that.equal()
     })
       
-    this.elements.btn.ac.addEventListener('click', function(e){
+    multiEventListener(this.elements.btn.ac, 'click touchend', function(e){
       e.preventDefault()
       that.clear()
     })
       
-    this.elements.btn.save.addEventListener('click', function(){
+    multiEventListener(this.elements.btn.save, 'click touchend', function(e){
+      if(!that.storage.calculationStr || that.storage.lastOperation === 'operator'){ 
+        e.preventDefault()
+        return 
+      }
       that.equal()
     })
   },
